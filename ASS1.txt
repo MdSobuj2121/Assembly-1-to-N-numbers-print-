@@ -1,0 +1,55 @@
+include "emu8086.inc"
+.MODEL SMALL 
+.STACK 100H    
+.DATA
+ 
+N DB ? ; DECLARE VARIABLE "N" IN DATA SEGMENT
+          
+.CODE    
+         
+         MAIN PROC 
+         MOV AX, @DATA  ; ACCESS N FROM DATA SEGMENT
+         MOV DS, AX  
+        
+         PRINTN "ENTER THE VALUE OF N:"
+         
+         MOV AH, 1    ; TAKING INPUT FROM USER
+         INT 21H  
+               
+         MOV N, AL    ; ASSIGN THE VALUE IN N
+         
+         
+         MOV CH, 49   ; INNITIAL VALUE ASSIGN ASCII 49 IN DECIMAL = 1
+         
+         PRINTN
+         PRINTN
+         
+         FOR: 
+         MOV AH, 2    ; LOOP N TIMES
+         MOV DL, CH 
+         PRINTN 
+         INT 21H
+           
+         
+         CMP CH, N     ; COMOPARE INITIAL VALUE AND N
+         
+         JE ENDF       ; CHECK JUMP EQUAL CONDITION
+         
+         INC CH        ; INCREMENT THYE INITIAL VALUE BY 1
+         JMP FOR
+          
+          
+          
+       
+         ENDF:
+         PRINTN
+         PRINTN
+         PRINTN
+         PRINTN "CODE END"   ;END LOOP
+         
+         
+         
+         MAIN ENDP 
+         MOV AH ,4CH 
+         INT 21H
+END MAIN
